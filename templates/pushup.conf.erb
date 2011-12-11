@@ -1,0 +1,15 @@
+[server]
+pidFile				= /var/run/pushup.pid
+port				= 80
+adminPort			= 3001
+flashPort			= 843
+adminPassword		= <%= scope.lookupvar('pushup::adminPassword') %>
+adminBindAddress	= <%= scope.lookupvar('pushup::adminBindAddress') %>
+hostName			= <%= scope.lookupvar('pushup::host_name') %>
+contentType			= text/html
+bindAddress			= <%= scope.lookupvar('pushup::bindAddress') %>
+idleUserTimeout		= 30
+gcInterval			= 30
+maxConnClient		= 50000
+maxConnFlash		= 1024
+maxConnAdmin		= 1024

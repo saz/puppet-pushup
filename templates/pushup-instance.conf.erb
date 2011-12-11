@@ -1,0 +1,15 @@
+[server]
+pidFile				= /var/run/<%= instance_name %>.pid
+port				= 80
+adminPort			= 3001
+flashPort			= 843
+adminPassword		= <%= adminPassword %>
+adminBindAddress	= <%= adminBindAddress %>
+hostName			= <%= host_name %>
+contentType			= text/html
+bindAddress			= <%= bindAddress %>
+idleUserTimeout		= 30
+gcInterval			= 30
+maxConnClient		= 50000
+maxConnFlash		= 1024
+maxConnAdmin		= 1024
