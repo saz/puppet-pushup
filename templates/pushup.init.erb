@@ -1,6 +1,6 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          <%= scope.lookupvar('pushup::instance::instance_name') %>
+# Provides:          <%= scope.lookupvar('instance_name') %>
 # Required-Start:    networking
 # Required-Stop:     networking
 # Default-Start:     2 3 4 5
@@ -8,10 +8,10 @@
 # Short-Description: Start the pushup server.
 ### END INIT INFO
 
-NAME=<%= scope.lookupvar('pushup::instance::instance_name') %>
+NAME=<%= scope.lookupvar('instance_name') %>
 PATH=/sbin:/usr/sbin:/bin:/usr/bin
 DAEMON=/usr/sbin/pushup
-CONFIG=<%= scope.lookupvar('pushup::instance::instance_config_full') %>
+CONFIG=<%= scope.lookupvar('instance_config_full') %>
 ARGS="-f $CONFIG -i5 -D -l /var/log/$NAME.log"
 PIDFILE=/var/run/$NAME.pid
 
