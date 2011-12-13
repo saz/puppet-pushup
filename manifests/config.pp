@@ -1,6 +1,6 @@
 class pushup::config {
     file { $pushup::params::config_file:
-        ensure  => present,
+        ensure  => $pushup::ensure,
         owner   => root,
         group   => root,
         mode    => 640,
