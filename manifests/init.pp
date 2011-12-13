@@ -13,6 +13,7 @@
 # [Remember: No empty lines between comments and class definition]
 class pushup (
     $ensure = present,
+    $package_ensure = present,
     $bindAddress = $::ipaddress,
     $adminBindAddress = '127.0.0.1',
     $adminPassword = 'password',
