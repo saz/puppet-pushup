@@ -1,0 +1,53 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:          <%= scope.lookupvar('pushup::instance::instance_name') %>
+# Required-Start:    networking
+# Required-Stop:     networking
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Start the pushup server.
+### END INIT INFO
+
+NAME=<%= scope.lookupvar('pushup::instance::instance_name') %>
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+DAEMON=/usr/sbin/pushup
+CONFIG=<%= scope.lookupvar('pushup::instance::instance_config_full') %>
+ARGS="-f $CONFIG -i5 -D -l /var/log/$NAME.log"
+PIDFILE=/var/run/$NAME.pid
+
+test -x $DAEMON || exit 0
+
+if [ ! -e $CONFIG ]; then
+	echo "Configuration file $CONFIG not found. Aborting!"
+	exit 1
+fi
+
+. /lib/lsb/init-functions
+
+set -e
+
+case "$1" in
+  start)
+        echo -n "Starting pushup daemon: $NAME"
+		start-stop-daemon --start --quiet --pidfile $PIDFILE --exec $DAEMON -- $ARGS
+		echo "."
+	;;
+  stop)
+        echo -n "Stopping pushup daemon: $NAME"
+		start-stop-daemon --stop --pidfile $PIDFILE --quiet --oknodo --retry=TERM/10/KILL/5 --name pushup
+        echo "."
+	;;
+
+  restart)
+  		$0 stop
+		# give it some time to stop, sometimes start-stop-daemon is too fast
+		sleep 3
+		$0 start
+	;;
+
+  *)
+	echo "Usage: /etc/init.d/pushup {start|stop|restart}"
+	exit 1
+esac
+
+exit 0
