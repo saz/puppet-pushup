@@ -32,7 +32,10 @@ define pushup::instance (
     }
 
     file { $instance_name:
-        ensure  => $ensure,
+        ensure  => $ensure ? {
+            present => file,
+            absent  => absent,
+        },
         path    => "${pushup::params::init_base}${instance_name}",
         content => template("${module_name}/pushup.init.erb"),
         require => File[$instance_config],
