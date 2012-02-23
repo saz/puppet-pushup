@@ -14,6 +14,7 @@ class pushup::service {
                 present => $pushup::service_onboot,
             },
         },
+        pattern    => '/usr/bin/pushup -f /etc/pushup.conf',
         hasstatus  => false,
         hasrestart => true,
         require    => Class['pushup::config'],
